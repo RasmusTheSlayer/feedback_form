@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета обратной связи</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <img src="{{ url_for('static', filename='img/12312.png') }}" alt="" class="top-image">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form id="leadForm" method="post">
+            {{ form.hidden_tag() }}  <!-- CSRF-токен -->
+
+            <div class="field">
+                <label for="name">Ваше имя и фамилия</label>
+                <input type="text" id="name" name="name" placeholder="" required>
+            </div>
+
+            <div class="field">
+                <label for="email">Ваш email</label>
+                <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+            </div>
+
+            <div class="field">
+                <label>Ваш Telegram</label>
+                <input type="text" id="phone" name="tg_user" placeholder="@username (Необязательно)">
+            </div>
+
+            <button class="btn-brown" type="submit">Отправить</button>
+            <p class="agree">Нажимая на кнопку, вы соглашаетесь с политикой конфиденциальности.</p>
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
